@@ -3,29 +3,21 @@ import agents.Claude;
 import agents.Gemini;
 import agents.Gpt;
 
+import java.util.List;
+
 
 public class AgentFactory {
-    Agent getAgentObject(String type, Agent curAgent) {
+    List<Agent> getAgents(String type) {
         if (type.equals("history")) {
-            if(curAgent == null){
-                return new Gpt();
-            }else{
-                if(curAgent instanceof Gpt){
-                    return new Claude();
-                }else if(curAgent instanceof Claude){
-                    return new Gemini();
-                }else{
-                    // todo: throw exception
-                    return null;
-                }
-            }
+            return List.of(new Gpt(), new Claude(), new Gemini());
         } else if (type.equals("calculate")) {
-            // todo: same for calculate
-        } else {
-            // todo: same for logical type
+            // todo: re-order agents gemini->claude->GPT for calculate
+            return List.of(new Gemini(), new Claude(),new Gpt());
+        } else if (type.equals("logical")) {
+            // todo: re-order agents claude->Gemini->GPT for logical type
+            return List.of(new Claude(),new Gemini(),new Gpt());
         }
 
-        // todo: throw exception
-        return null;
+        return List.of();
     }
 }
