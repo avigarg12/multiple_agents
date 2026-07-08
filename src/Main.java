@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) {
         AgentFactory af = new AgentFactory();
-        List<Agent> agents = af.getAgents(AgentTaskType.HISTORY);it
+        List<Agent> agents = af.getAgents(AgentTaskType.HISTORY);
 
         FallbackAgentProcessor processor = new FallbackAgentProcessor(2, TimeUnit.SECONDS);
 
