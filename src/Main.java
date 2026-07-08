@@ -15,10 +15,8 @@ public class Main {
             if(response == null) {
                 System.out.println("NOT ABLE TO PROCESS");
             }else System.out.println("processed successfully");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }finally {
-            processor.shudown();
+            processor.shutdown();
         }
     }
 }
