@@ -32,10 +32,14 @@ public class FallbackAgentProcessor {
             return future.get(timeout, unit);
         } catch (TimeoutException e) {
             future.cancel(true);
-            System.out.printf("agent processing timed out: %s \n", agent.getClass());
+            System.out.printf("agent processing timed out: %s \n", agent.getClass().getSimpleName());
             return null;
         }catch (ExecutionException e) {
-            System.out.printf("agent processing failed: %s \n", agent.getClass().getSimpleName());
+            System.out.printf(
+                    "agent processing failed: %s, reason: %s%n",
+                    agent.getClass().getSimpleName(),
+                    e.getCause().getMessage()
+            );
             return null;
         }catch (InterruptedException e) {
             future.cancel(true);
