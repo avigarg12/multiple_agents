@@ -6,6 +6,7 @@ import java.util.concurrent.*;
 public class FallbackAgentProcessor {
     private final long timeout;
     private final TimeUnit unit;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public FallbackAgentProcessor(long timeout, TimeUnit unit) {
         this.timeout = timeout;
@@ -20,8 +21,11 @@ public class FallbackAgentProcessor {
         return null;
     }
 
+    public void shudown() {
+        executor.shutdownNow();
+    }
+
     private String processWithTimeout(Agent agent, String message) throws Exception {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<String> future = executor.submit(() -> agent.process(message));
 
         try {
@@ -30,8 +34,6 @@ public class FallbackAgentProcessor {
             future.cancel(true);
             System.out.printf("agent processing timed out: %s \n", agent.getClass());
             return null;
-        } finally {
-            executor.shutdownNow();
         }
     }
 }

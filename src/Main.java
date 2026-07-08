@@ -17,6 +17,8 @@ public class Main {
             }else System.out.println("processed successfully");
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }finally {
+            processor.shudown();
         }
     }
 }
