@@ -5,7 +5,7 @@ public class Gemini implements Agent{
     public String process(String message) throws InterruptedException {
 //        Thread.sleep(3000);
 
-        System.out.println("processing via agents.Gemini");
+        System.out.println("processing via main.java.agents.Gemini");
         return "";
     }
 }
