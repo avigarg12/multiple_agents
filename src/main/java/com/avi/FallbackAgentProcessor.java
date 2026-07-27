@@ -3,6 +3,7 @@ package com.avi;
 import agents.Agent;
 
 import jakarta.annotation.PreDestroy;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,9 +15,10 @@ public class FallbackAgentProcessor {
     private final TimeUnit unit;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    public FallbackAgentProcessor(long timeout, TimeUnit unit) {
+    public FallbackAgentProcessor(@Value("${agent.processor.timeout}") long timeout,
+                                  @Value("${agent.processor.timeunit}") String unitStr) {
         this.timeout = timeout;
-        this.unit = unit;
+        this.unit = TimeUnit.valueOf(unitStr.toUpperCase());
     }
 
     public String process(List<Agent> agents, String message) {
