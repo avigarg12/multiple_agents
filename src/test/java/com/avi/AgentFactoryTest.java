@@ -1,9 +1,9 @@
+package com.avi;
+
 import agents.Agent;
 import agents.Claude;
 import agents.Gemini;
 import agents.Gpt;
-import com.avi.AgentFactory;
-import com.avi.AgentTaskType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
