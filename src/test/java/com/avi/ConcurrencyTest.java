@@ -1,6 +1,7 @@
 package com.avi;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -10,6 +11,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class ConcurrencyTest {
     @Test
     void runConcurrentRequest() throws Exception{
@@ -19,7 +21,7 @@ public class ConcurrencyTest {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest loginRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/api/auth/login"))
-                .header("Authorization","Basic cGFzc3dvcmQ=")
+                .header("Authorization","Basic YWRtaW46cGFzc3dvcmQ=")
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
 
