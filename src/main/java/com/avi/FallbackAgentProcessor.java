@@ -16,9 +16,9 @@ public class FallbackAgentProcessor {
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public FallbackAgentProcessor(@Value("${agent.processor.timeout}") long timeout,
-                                  @Value("${agent.processor.timeunit}") String unitStr) {
+                                  @Value("${agent.processor.timeunit}") TimeUnit unit) {
         this.timeout = timeout;
-        this.unit = TimeUnit.valueOf(unitStr.toUpperCase());
+        this.unit = unit;
     }
 
     public String process(List<Agent> agents, String message) {

@@ -38,6 +38,7 @@ public class AgentController {
     }
 
     // DTO (Data Transfer Object) for mapping JSON Request Body
+    // setters as not needed as Jackson uses Reflection to set the DTOs
     static class AgentRequest{
         private AgentTaskType taskType;
         private  String message;
