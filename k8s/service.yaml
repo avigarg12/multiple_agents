@@ -1,0 +1,12 @@
+apiVersion: v1  # Service is a core K8s resource, uses the v1 API
+kind: Service   # Tells K8s to create a Service routing object
+metadata:
+  name: multiple-agents-service   # The name of the Service
+spec:
+  selector:   # The search query the service uses to find target pods
+    app: multiple-agents # Tells the service to route traffic to any pod with this label
+  ports:
+    - protocol: TCP
+      port: 80 # Port exposed by the Service (external)
+      targetPort: 8080 # Port inside the Pod container to route to (internal)
+  type: ClusterIP # Internal IP. We will use port-forwarding to access it safely.

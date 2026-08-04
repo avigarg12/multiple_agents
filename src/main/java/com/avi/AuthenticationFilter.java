@@ -30,6 +30,7 @@ public class AuthenticationFilter implements Filter {
 
         //2. agents endpoint
         if(path.startsWith("/api/agents/")){
+            System.out.println("Tomcat Thread handling this request: " + Thread.currentThread().getName());
             String authHeader = httpRequest.getHeader("Authorization");
 
             if(authHeader == null || !authHeader.startsWith("Bearer ")){

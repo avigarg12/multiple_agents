@@ -13,7 +13,7 @@ import java.util.concurrent.*;
 public class FallbackAgentProcessor {
     private final long timeout;
     private final TimeUnit unit;
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final ExecutorService executor = Executors.newFixedThreadPool(20);
 
     public FallbackAgentProcessor(@Value("${agent.processor.timeout}") long timeout,
                                   @Value("${agent.processor.timeunit}") TimeUnit unit) {

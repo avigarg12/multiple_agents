@@ -1,0 +1,29 @@
+apiVersion: apps/v1   # Tells K8s which API version of the Deployment schema to use
+kind: Deployment  # Tells K8s which API version of the Deployment schema to use
+metadata:   # Metadata about the Deployment itself
+  name: mutiple-agents-deployment   # The name of this deployment manager
+  labels:   # Labels (tags) on the deployment object
+    app: multiple-agents
+spec: # 1. Outer Spec (Deployment configuration)
+  replicas: 2 # Run 2 instances of our pod for high availability
+  selector:    # How the deployment knows which pods belong to it
+    matchLabels:    # It will look for pods with this label
+      app: multiple-agents # Watch pods with this label
+  template: # 2. The Blueprint for creating pods
+    metadata:
+      labels:   # Labels attached to the new pods (must match selector above!)
+        app: multiple-agents
+    spec: # Inner Spec (Container configuration inside the pod)
+      containers:    # List of containers running inside this pod
+      - name: multiple-agents-container   # Name of the container
+        image: multiple-agents:1.0    # The Docker image to run
+        imagePullPolicy: Never # Crucial for local testing so K8s doesn't try to download the image from the cloud
+        ports:
+        - containerPort: 8080   # Port inside the container the app is running on
+        resources:    # Hardware limits for this container
+          limits:
+            memory: "512Mi"   # Max memory allowed (prevents RAM leaks from crashing node)
+            cpu: "500m" # Max CPU allowed (500m = 0.5 CPU core)
+          requests:
+            memory: "256Mi"   # Guaranteed memory allocated on startup
+            cpu: "250m" # Guaranteed CPU allocated on startup
